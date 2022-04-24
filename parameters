@@ -1,0 +1,47 @@
+make_ldpc(n_code, d_v, d_c, systematic=False, sparse=True, seed=None):
+ Parameters
+    ----------
+    n_code: int, Length of the codewords.
+    d_v: int, Number of parity-check equations including a certain bit.
+    d_c: int, Number of bits in the same parity-check equation. d_c Must be
+        greater or equal to d_v and must divide n.
+    seed: int, seed of the random generator.
+    systematic: boolean, default False. if True, constructs a systematic
+    coding matrix G.
+
+    Returns:
+    --------
+    H: array (n_equations, n_code). Parity check matrix of an LDPC code with
+        code length `n_code` and `n_equations` number of equations.
+    G: (n_code, n_bits) array coding matrix.
+
+
+
+def encode(tG, v, snr, seed=None):
+    """Encode a binary message and adds Gaussian noise.
+    Parameters
+    ----------
+    tG: array or scipy.sparse.csr_matrix (m, k). Transposed coding matrix
+    obtained from `pyldpc.make_ldpc`.
+    v: array (k, ) or (k, n_messages) binary messages to be encoded.
+    snr: float. Signal-Noise Ratio. SNR = 10log(1 / variance) in decibels.
+    Returns
+    -------
+    y: array (n,) or (n, n_messages) coded messages + noise.
+    """
+
+
+def decode(H, y, snr, maxiter=1000):
+    """Decode a Gaussian noise corrupted n bits message using BP algorithm.
+    Decoding is performed in parallel if multiple codewords are passed in y.
+    Parameters
+    ----------
+    H: array (n_equations, n_code). Decoding matrix H.
+    y: array (n_code, n_messages) or (n_code,). Received message(s) in the
+        codeword space.
+    maxiter: int. Maximum number of iterations of the BP algorithm.
+    Returns
+    -------
+    x: array (n_code,) or (n_code, n_messages) the solutions in the
+        codeword space.
+    """
